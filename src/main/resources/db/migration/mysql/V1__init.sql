@@ -14,7 +14,7 @@ CREATE TABLE `funcionario` (
   `data_criacao` datetime NOT NULL,
   `email` varchar(255) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `perfil` varchar(255) NOT NULL,
+  `perfil` ENUM('ROLE_ADMIN','ROLE_USUARIO') NOT NULL,
   `qtd_horas_almoco` float DEFAULT NULL,
   `qtd_horas_trabalho_dia` float DEFAULT NULL,
   `senha` varchar(255) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `lancamento` (
   `data_criacao` datetime NOT NULL,
   `descricao` varchar(255) DEFAULT NULL,
   `localizacao` varchar(255) DEFAULT NULL,
-  `tipo` varchar(255) NOT NULL,
+  `tipo` ENUM('INICIO_TRABALHO','TERMINO_TRABALHO','INICIO_ALMOCO','TERMINO_ALMOCO','INICIO_PAUSA','TERMINO_PAUSA') NOT NULL,
   `func_id` bigint(20) DEFAULT NULL,
   primary key (lanc_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

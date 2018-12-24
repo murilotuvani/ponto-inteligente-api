@@ -97,7 +97,8 @@ public class Lancamento implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo", nullable = false, columnDefinition = "tipo ENUM(INICIO_TRABALHO,TERMINO_TRABALHO,INICIO_ALMOCO,TERMINO_ALMOCO,INICIO_PAUSA,TERMINO_PAUSA) NOT NULL")
+	//@Column(name = "tipo", nullable = false, columnDefinition = "tipo ENUM(INICIO_TRABALHO,TERMINO_TRABALHO,INICIO_ALMOCO,TERMINO_ALMOCO,INICIO_PAUSA,TERMINO_PAUSA) NOT NULL")
+	@Column(name = "tipo", nullable = false)
 	public LancamentoTipo getTipo() {
 		return tipo;
 	}

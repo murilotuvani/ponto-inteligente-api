@@ -112,7 +112,8 @@ public class Funcionario implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "perfil", nullable = false, columnDefinition = "perfil ENUM('ROLE_ADMIN','ROLE_USUARIO') NOT NULL")
+	//@Column(name = "perfil", nullable = false, columnDefinition = "perfil ENUM('ROLE_ADMIN','ROLE_USUARIO') NOT NULL")
+	@Column(name = "perfil", nullable = false)
 	public Perfil getPerfil() {
 		return perfil;
 	}
