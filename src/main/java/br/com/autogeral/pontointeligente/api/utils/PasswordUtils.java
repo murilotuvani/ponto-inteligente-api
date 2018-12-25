@@ -15,7 +15,7 @@ public class PasswordUtils {
 	 */
 	public static String gerarBCrypt(String senha) {
 		String hash = null;
-		if (senha != null) {
+		if (senha != null && !"".equals(senha)) {
 			log.info("Gerando hash com o BCrypt.");
 			BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
 			hash = bCryptEncoder.encode(senha);
