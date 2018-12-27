@@ -1,5 +1,6 @@
 package br.com.autogeral.pontointeligente.api.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import br.com.autogeral.pontointeligente.api.entities.Empresa;
@@ -21,5 +22,7 @@ public interface EmpresaService {
 	 * @return Optional<Empresa>
 	 */
 	Optional<Empresa> buscaPorCnpj(String cnpj);
+
+	List<Empresa> list();
 
 }

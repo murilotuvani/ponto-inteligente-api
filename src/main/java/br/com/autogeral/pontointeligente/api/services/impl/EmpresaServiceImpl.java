@@ -1,5 +1,6 @@
 package br.com.autogeral.pontointeligente.api.services.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -31,6 +32,13 @@ public class EmpresaServiceImpl implements EmpresaService {
 		logger.info("Buscando empresa para o CNPJ {}", cnpj);
 		Optional<Empresa> optional = Optional.ofNullable(empresaRepository.findByCnpj(cnpj));
 		return optional;
+	}
+
+	@Override
+	public List<Empresa> list() {
+		logger.info("Listagem de empresas");
+		List<Empresa> list = empresaRepository.findAll();
+		return list;
 	}
 
 }
