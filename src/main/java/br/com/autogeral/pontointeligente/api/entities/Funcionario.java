@@ -1,22 +1,21 @@
 package br.com.autogeral.pontointeligente.api.entities;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -47,8 +46,7 @@ public class Funcionario implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "func_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -89,6 +87,11 @@ public class Funcionario implements Serializable {
 		return valorHora;
 	}
 
+	@Transient
+	public Optional<BigDecimal> getValorHoraOpt() {
+		return Optional.ofNullable(valorHora);
+	}
+
 	public void setValorHora(BigDecimal valorHora) {
 		this.valorHora = valorHora;
 	}
@@ -96,6 +99,11 @@ public class Funcionario implements Serializable {
 	@Column(name = "qtd_horas_trabalho_dia", nullable = true)
 	public Float getQtdHorasTrabalhoDia() {
 		return qtdHorasTrabalhoDia;
+	}
+
+	@Transient
+	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
+		return Optional.ofNullable(qtdHorasTrabalhoDia);
 	}
 
 	public void setQtdHorasTrabalhoDia(Float qtdHorasTrabalhoDia) {
@@ -107,12 +115,16 @@ public class Funcionario implements Serializable {
 		return qtdHorasAlmoco;
 	}
 
+	@Transient
+	public Optional<Float> getQtdHorasAlmocoOpt() {
+		return Optional.ofNullable(qtdHorasAlmoco);
+	}
+
 	public void setQtdHorasAlmoco(Float qtdHorasAlmoco) {
 		this.qtdHorasAlmoco = qtdHorasAlmoco;
 	}
 
 	@Enumerated(EnumType.STRING)
-	//@Column(name = "perfil", nullable = false, columnDefinition = "perfil ENUM('ROLE_ADMIN','ROLE_USUARIO') NOT NULL")
 	@Column(name = "perfil", nullable = false)
 	public Perfil getPerfil() {
 		return perfil;
@@ -150,7 +162,6 @@ public class Funcionario implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "empr_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_func_empr"))
 	public Empresa getEmpresa() {
 		return empresa;
 	}
