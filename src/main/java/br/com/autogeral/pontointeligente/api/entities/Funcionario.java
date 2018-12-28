@@ -1,21 +1,26 @@
 package br.com.autogeral.pontointeligente.api.entities;
 
-import java.beans.Transient;
+//import java.beans.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -24,6 +29,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "funcionario")
+@Access(AccessType.PROPERTY)
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = -5754246207015712518L;
@@ -46,7 +52,8 @@ public class Funcionario implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "func_id")
 	public Long getId() {
 		return id;
 	}
@@ -87,10 +94,10 @@ public class Funcionario implements Serializable {
 		return valorHora;
 	}
 
-	@Transient
-	public Optional<BigDecimal> getValorHoraOpt() {
-		return Optional.ofNullable(valorHora);
-	}
+//	@Transient
+//	public Optional<BigDecimal> getValorHoraOpt() {
+//		return Optional.ofNullable(valorHora);
+//	}
 
 	public void setValorHora(BigDecimal valorHora) {
 		this.valorHora = valorHora;
@@ -101,10 +108,10 @@ public class Funcionario implements Serializable {
 		return qtdHorasTrabalhoDia;
 	}
 
-	@Transient
-	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
-		return Optional.ofNullable(qtdHorasTrabalhoDia);
-	}
+//	@Transient
+//	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
+//		return Optional.ofNullable(qtdHorasTrabalhoDia);
+//	}
 
 	public void setQtdHorasTrabalhoDia(Float qtdHorasTrabalhoDia) {
 		this.qtdHorasTrabalhoDia = qtdHorasTrabalhoDia;
@@ -113,11 +120,6 @@ public class Funcionario implements Serializable {
 	@Column(name = "qtd_horas_almoco", nullable = true)
 	public Float getQtdHorasAlmoco() {
 		return qtdHorasAlmoco;
-	}
-
-	@Transient
-	public Optional<Float> getQtdHorasAlmocoOpt() {
-		return Optional.ofNullable(qtdHorasAlmoco);
 	}
 
 	public void setQtdHorasAlmoco(Float qtdHorasAlmoco) {
@@ -162,6 +164,7 @@ public class Funcionario implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "empr_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_func_empr"))
 	public Empresa getEmpresa() {
 		return empresa;
 	}

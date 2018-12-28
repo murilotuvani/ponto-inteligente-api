@@ -1,5 +1,6 @@
 package br.com.autogeral.pontointeligente.api.controllers;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -126,13 +127,14 @@ public class CadastroPFController {
 		cadastroPFDto.setEmail(funcionario.getEmail());
 		cadastroPFDto.setCpf(funcionario.getCpf());
 		cadastroPFDto.setCnpj(funcionario.getEmpresa().getCnpj());
-		funcionario.getQtdHorasAlmocoOpt().ifPresent(
+		Optional<Float> optional = Optional.ofNullable(funcionario.getQtdHorasAlmoco());
+		optional.ifPresent(
 				qtdHorasAlmoco -> cadastroPFDto.setQtdHorasAlmoco(Optional.of(Float.toString(qtdHorasAlmoco))));
-		funcionario.getQtdHorasTrabalhoDiaOpt().ifPresent(
+		optional = Optional.ofNullable(funcionario.getQtdHorasTrabalhoDia());
+		optional.ifPresent(
 				qtdHorasTrabDia -> cadastroPFDto.setQtdHorasTrabalhoDia(Optional.of(Float.toString(qtdHorasTrabDia))));
-		funcionario.getValorHoraOpt()
-				.ifPresent(valorHora -> cadastroPFDto.setValorHora(Optional.of(valorHora.toString())));
-
+		Optional<BigDecimal> optionalBd = Optional.ofNullable(funcionario.getValorHora());
+	    optionalBd.ifPresent(valorHora -> cadastroPFDto.setValorHora(Optional.of(valorHora.toString())));
 		return cadastroPFDto;
 	}
 }
