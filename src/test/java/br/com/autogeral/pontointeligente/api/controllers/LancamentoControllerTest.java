@@ -83,6 +83,19 @@ public class LancamentoControllerTest {
 				.andExpect(jsonPath("$.data").isEmpty());
 	}
 
+	/**
+	 * http://localhost:8080/api/lancamentos
+	 * 
+	 * raw 
+	 * {
+"data": "2018-12-28 17:26:57",
+"tipo": "TERMINO_TRABALHO",
+"descricao": "Lancamento.Automatico.REP",
+"localizacao": "1.23423,2.12312",
+"funcionarioId": "2"
+}
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "admin@admin.com", roles = { "ADMIN" })
 	public void testRemoverLancamento() throws Exception {
@@ -93,15 +106,15 @@ public class LancamentoControllerTest {
 				.andExpect(status().isOk());
 	}
 
-//	@Test
-//	@WithMockUser
-//	public void testRemoverLancamentoAcessoNegado() throws Exception {
-//		BDDMockito.given(this.lancamentoService.buscarPorId(Mockito.anyLong()))
-//				.willReturn(Optional.of(new Lancamento()));
-//
-//		mvc.perform(MockMvcRequestBuilders.delete(URL_BASE + ID_LANCAMENTO).accept(MediaType.APPLICATION_JSON))
-//				.andExpect(status().isForbidden());
-//	}
+	@Test
+	@WithMockUser
+	public void testRemoverLancamentoAcessoNegado() throws Exception {
+		BDDMockito.given(this.lancamentoService.buscarPorId(Mockito.anyLong()))
+				.willReturn(Optional.of(new Lancamento()));
+
+		mvc.perform(MockMvcRequestBuilders.delete(URL_BASE + ID_LANCAMENTO).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isForbidden());
+	}
 
 	private String obterJsonRequisicaoPost() throws JsonProcessingException {
 		LancamentoDto lancamentoDto = new LancamentoDto();
