@@ -1,6 +1,5 @@
 package br.com.autogeral.pontointeligente.api.controllers;
 
-import java.beans.Transient;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
